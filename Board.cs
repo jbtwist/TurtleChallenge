@@ -27,16 +27,22 @@ public class Board
         // Setup mines
         for (int i = 0; i<mines.Length; i+=2){
             int x = mines[i];
-            int y = mines[i+1];                        
+            int y = mines[i+1];          
+            if (grid[x, y] != Types.EMPTY) {
+                throw new OverlapException($"You tried to set a mine over a {grid[x, y]} in tile [{x},{y}]");
+            }
             grid[x, y] = Types.MINE;            
         }
-        // Setup Turtle and Exit
+        // Setup Turtle
+        if (grid[turtle.x, turtle.y] != Types.EMPTY){
+            throw new OverlapException($"You tried to setup the turtle over a {grid[turtle.x, turtle.y]} in tile [{turtle.x},{turtle.y}]");
+        }
         grid[turtle.x, turtle.y] = Types.TURTLE;
-        grid[exit[0], exit[1]] = Types.EXIT;
-        
-        Console.WriteLine("Exit: " + exit[0] + "," + exit[1]);
-        Console.WriteLine("Board: " + height + "," + width);
-        Console.WriteLine("Turtle: " + turtle.x + "," + turtle.y + "," + turtle.dir);
+        // Setup Exit
+        if (grid[exit[0], exit[1]] != Types.EMPTY){
+            throw new OverlapException($"You tried to setup the exit over a {grid[exit[0], exit[1]]} in tile [{exit[0]},{exit[1]}]");
+        }
+        grid[exit[0], exit[1]] = Types.EXIT;    
     }
 
     public MoveResult Move()

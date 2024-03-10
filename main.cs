@@ -83,9 +83,11 @@ class Challenge
             Console.WriteLine("There are no more movements and you didn't find the exit.");
             return;      
         } catch (FormatException) {
-            Console.WriteLine($"Error loading settings, check that every key is well formatted.");
-        } catch (FileLoadException){
-            Console.WriteLine($"There's no instructions file.");
+            Console.WriteLine("Error loading settings, check that every key is well formatted.");
+        } catch (FileLoadException) {
+            Console.WriteLine("There's no instructions file.");
+        } catch (OverlapException e) {
+            Console.WriteLine(e.Message);
         }
     }
 }
