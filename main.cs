@@ -88,6 +88,8 @@ class Challenge
             Console.WriteLine("There's no instructions file.");
         } catch (OverlapException e) {
             Console.WriteLine(e.Message);
+        } catch (IndexOutOfRangeException) {
+            Console.WriteLine("You tried to set up something outside the board, please, check the turtle, mines and exit tiles fit in the board.");
         }
     }
 }
